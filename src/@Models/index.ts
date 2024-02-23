@@ -1,4 +1,5 @@
 import User, { UserInput, UserOutput } from "./User/index.ts";
+import Customer, { CustomerInput, CustomerOutput } from "./Customer/index.ts";
 import Product, { ProductInput, ProductOutput } from "./Product/index.ts";
 import PurchaserOrder, {
   PurchaseOrderInput,
@@ -16,6 +17,12 @@ export {
   User,
   UserInput,
   UserOutput,
+  /**
+   * Customer
+   */
+  Customer,
+  CustomerInput,
+  CustomerOutput,
   /**
    * Product
    */
