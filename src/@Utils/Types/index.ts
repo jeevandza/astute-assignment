@@ -48,7 +48,7 @@ export type ProductT = CommonDatesT & {
   id: number;
   name: string;
   description: string;
-  type: number;
+  typeOfProduct: number;
   quantity: number;
   price: number;
   expiryDate: Date;
@@ -60,13 +60,13 @@ export type ProductT = CommonDatesT & {
 /**
  * Customer types
  */
-export type CustomerT = UserT &
-  CommonDatesT & {
-    customerId: number;
-    purchasedProductsId: number;
-    returnedOrderId: number;
-    address?: AddressT[];
-  };
+export type CustomerT = CommonDatesT & {
+  id: number;
+  userId:number;
+  purchaseOrderId: number;
+  returnedOrderId: number;
+  address?: AddressT[];
+};
 
 /**
  * Voucher types
