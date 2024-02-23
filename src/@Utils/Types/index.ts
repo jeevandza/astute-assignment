@@ -62,7 +62,7 @@ export type ProductT = CommonDatesT & {
  */
 export type CustomerT = CommonDatesT & {
   id: number;
-  userId:number;
+  userId: number;
   purchaseOrderId: number;
   returnedOrderId: number;
   address?: AddressT[];
