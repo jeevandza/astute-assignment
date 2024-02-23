@@ -10,6 +10,15 @@ export type CommonDatesT = {
 };
 
 /**
+ * Pagination keys to show data 10 per page to prevent load
+ */
+export type PaginationKeys = {
+  totalCount: number;
+  countPerPage: number;
+  totalPages: number;
+};
+
+/**
  * Address of a user
  */
 export type AddressT = {
