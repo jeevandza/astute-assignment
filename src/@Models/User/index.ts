@@ -1,19 +1,11 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelizeConnection } from "@Database";
+import type { UserT } from "@Utils/Types";
 
-interface UserI {
-  id: number;
-  name: string;
-  email: string;
-  contact: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
-}
-export interface UserInput extends Optional<UserI, "id" | "name"> {}
-export interface UserOutput extends Required<UserI> {}
+export interface UserInput extends Optional<UserT, "id" | "name"> {}
+export interface UserOutput extends Required<UserT> {}
 
-class User extends Model<UserI, UserInput> implements UserI {
+class User extends Model<UserT, UserInput> implements UserT {
   public id!: number;
   public name!: string;
   public email!: string;

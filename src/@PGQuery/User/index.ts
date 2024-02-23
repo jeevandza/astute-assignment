@@ -55,7 +55,7 @@ const deleteUserById = async (id: number): Promise<boolean> => {
 const getAllUsers = async (
   filters?: GetAllUserFilters
 ): Promise<UserOutput[]> => {
-  const whereClause: any = {};
+  const whereClause:any = {};
 
   if (filters && filters.isDeleted) {
     whereClause.deletedAt = { [Op.not]: null };
