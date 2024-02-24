@@ -8,12 +8,19 @@ import {
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
-const dbInit = () => {
-  User.sync({ alter: isDevelopment });
-  Customer.sync({ alter: isDevelopment });
-  Product.sync({ alter: isDevelopment });
-  PurchaserOrder.sync({ alter: isDevelopment });
-  ReturnedOrder.sync({ alter: isDevelopment });
+const dbInit = async () => {
+  try {
+    await Promise.all([
+      User.sync({ alter: isDevelopment, force:true }),
+      Customer.sync({ alter: isDevelopment, force:true }),
+      Product.sync({ alter: isDevelopment }),
+      PurchaserOrder.sync({ alter: isDevelopment }),
+      ReturnedOrder.sync({ alter: isDevelopment }),
+    ]);
+    console.log("Database synchronization complete");
+  } catch (error) {
+    console.error("Error synchronizing database:", error);
+  }
 };
 
 export default dbInit;

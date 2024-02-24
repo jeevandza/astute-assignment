@@ -39,7 +39,7 @@ export type UserT = CommonDatesT & {
   id: number;
   name: string;
   email: string;
-  contact: number;
+  contact: string;
 };
 
 /**

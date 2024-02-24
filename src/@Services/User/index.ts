@@ -2,15 +2,28 @@ import { UserControl } from "@PGQuery";
 import { GetAllUserFilters } from "@Utils/Types";
 import { UserInput, UserOutput } from "@Models";
 
-const create = (payload: UserInput): Promise<UserOutput> => {
-  return UserControl.createUser(payload);
+export const create = async (payload: UserInput): Promise<UserOutput> => {
+  const now = new Date();
+  const payloadWithTimestamps: UserInput = {
+    ...payload,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  return UserControl.createUser(payloadWithTimestamps);
 };
 
-export const update = (
+export const update = async (
   id: number,
   payload: Partial<UserInput>
 ): Promise<UserOutput> => {
-  return UserControl.updateUser(id, payload as UserInput);
+  const now = new Date();
+  const payloadWithTimestamps: Partial<UserInput> = {
+    ...payload,
+    updatedAt: now,
+  };
+
+  return UserControl.updateUser(id, payloadWithTimestamps as UserInput);
 };
 
 export const getById = (id: number): Promise<UserInput> => {

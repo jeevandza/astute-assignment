@@ -1,6 +1,5 @@
 import * as esbuild from "esbuild";
-import 'dotenv/config';
-
+import "dotenv/config";
 
 let ctx;
 
@@ -13,13 +12,12 @@ try {
     platform: "node",
     target: ["node18.17.0"],
     packages: "external",
-    tsconfig: './tsconfig.json',
+    tsconfig: "./tsconfig.json",
     define: {
       "process.env.NODE_ENV": "'development'",
-      "process.env.MONGO_URI":"process.env.MONGO_URI",
-      "process.env.PORT": "process.env.PORT"
+      "process.env.POSTGRES_DB_URL": "process.env.POSTGRES_DB_URL",
+      "process.env.PORT": "process.env.PORT",
     },
-
     outfile: "dist/app.cjs",
   });
 
@@ -29,4 +27,3 @@ try {
   console.error("An error occurred:", error);
   process.exit(1);
 }
-

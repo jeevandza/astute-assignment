@@ -3,7 +3,9 @@ import cors from 'cors';
 import "dotenv/config";
 import {userRoute } from "@Routes/index.ts";
 import { Logger} from '@Utils'
+import dbInit from "@Database/init";
 
+dbInit();
 
 const PORT = process.env.PORT || 3030;
 const app = express();

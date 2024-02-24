@@ -9,7 +9,7 @@ class User extends Model<UserT, UserInput> implements UserT {
   public id!: number;
   public name!: string;
   public email!: string;
-  public contact!: number;
+  public contact!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt!: Date;
@@ -32,11 +32,12 @@ User.init(
       unique: true,
     },
     contact: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.STRING,
       allowNull: true,
     },
   },
   {
+    tableName: "users", 
     timestamps: true,
     sequelize: sequelizeConnection,
     paranoid: true,

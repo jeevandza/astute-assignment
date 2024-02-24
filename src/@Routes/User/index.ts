@@ -1,12 +1,17 @@
 import { Router, Request, Response } from "express";
 import { UserControl } from "@PGQuery";
 
-
 const userRoute = () => {
   const router = Router();
 
   router.post("/users", async (req: Request, res: Response) => {
-      return UserControl.createUser(req.body)
+    const createUser = await UserControl.createUser(req.body);
+    console.log( createUser, 'createuse')
+    if (!!createUser) {
+      res.send({ status: 200, message: "User created" });
+    } else {
+      res.send({ status: 400, message: "something went wrong" });
+    }
   });
 
   router.get("/user", async (req: Request, res: Response) => {
