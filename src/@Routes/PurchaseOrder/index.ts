@@ -10,7 +10,7 @@ const purchaseOrderRoute = () => {
    */
   router.post("/purchaseOrder", async (req: Request, res: Response) => {
     try {
-      const { userId, ...payload } = req.body;
+      const { userId, address, ...payload } = req.body;
 
       const customer = await findOrCreateCustomer(userId);
       const purchaseOrder = await PurchaseOrderControl.createPurchaseOrder(
@@ -18,7 +18,8 @@ const purchaseOrderRoute = () => {
       );
 
       await Customer.update(
-        { purchaseOrderId: Number(purchaseOrder.id) },
+        { purchaseOrderId: Number(purchaseOrder.id), address },
+
         {
           where: { id: customer.id },
         }
