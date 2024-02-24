@@ -15,7 +15,7 @@ class Product extends Model<ProductT, ProductInput> implements ProductT {
   public expiryDate!: Date;
   public netWeight!: string;
   public createdBy!: number;
-  public updatedBy!: number | undefined;
+  public updatedBy!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt!: Date;

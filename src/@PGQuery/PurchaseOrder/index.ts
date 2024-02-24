@@ -9,7 +9,7 @@ import { ENUMS } from "@Utils";
 /**
  * To create purchase order
  */
-export const createPurchaseOrder = async (
+const createPurchaseOrder = async (
   payload: PurchaseOrderInput
 ): Promise<PurchaseOrderOutput> => {
   const createOrder = await PurchaserOrder.create(payload);
@@ -19,7 +19,7 @@ export const createPurchaseOrder = async (
 /**
  * To update purchase order
  */
-export const updatePurchaseOrder = async (
+const updatePurchaseOrder = async (
   id: number,
   payload: PurchaseOrderInput
 ): Promise<PurchaseOrderOutput> => {
@@ -35,7 +35,7 @@ export const updatePurchaseOrder = async (
  * Get purchase order by purchase id
  */
 
-export const getPurchaseOrderById = async (
+const getPurchaseOrderById = async (
   id: number
 ): Promise<PurchaseOrderOutput> => {
   const findPurchaseOrder = await PurchaserOrder.findByPk(id);
@@ -49,7 +49,7 @@ export const getPurchaseOrderById = async (
  * Delete a purchase order
  */
 
-export const deleteAPurchaseOrder = async (id: number): Promise<Boolean> => {
+const deleteAPurchaseOrder = async (id: number): Promise<Boolean> => {
   const checkStatusOfPurchaseOrder = await PurchaserOrder.findByPk(id);
   if (!checkStatusOfPurchaseOrder?.status.DECLINED) {
     throw new Error("Order already in process");
@@ -64,7 +64,7 @@ export const deleteAPurchaseOrder = async (id: number): Promise<Boolean> => {
  * Get All purchase order
  */
 
-export const getAllPurchaseOrder = async (
+const getAllPurchaseOrder = async (
   filters?: PurchaseOrderFilters
 ): Promise<PurchaseOrderOutput[]> => {
   const whereClause: any = {};
@@ -79,4 +79,12 @@ export const getAllPurchaseOrder = async (
   return PurchaserOrder.findAll({
     where: whereClause,
   });
+};
+
+export {
+  createPurchaseOrder,
+  updatePurchaseOrder,
+  getPurchaseOrderById,
+  deleteAPurchaseOrder,
+  getAllPurchaseOrder,
 };
