@@ -11,8 +11,8 @@ const isDevelopment = process.env.NODE_ENV === "development";
 const dbInit = async () => {
   try {
     await Promise.all([
-      User.sync({ alter: isDevelopment, force:true }),
-      Customer.sync({ alter: isDevelopment, force:true }),
+      User.sync({ alter: isDevelopment}),
+      Customer.sync({ alter: isDevelopment }),
       Product.sync({ alter: isDevelopment }),
       PurchaserOrder.sync({ alter: isDevelopment }),
       ReturnedOrder.sync({ alter: isDevelopment }),

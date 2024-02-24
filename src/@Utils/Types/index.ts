@@ -72,8 +72,8 @@ export type ProductT = CommonDatesT & {
 export type CustomerT = CommonDatesT & {
   id: number;
   userId: number;
-  purchaseOrderId: number;
-  returnedOrderId: number;
+  purchaseOrderId?: number;
+  returnedOrderId?: number;
   address?: AddressT[];
 };
 
@@ -103,6 +103,14 @@ export type PurchaseOrderT = CommonDatesT & {
   modeOfPayment: typeof ENUMS.PAYMENT_MODES;
   status: typeof ENUMS.ORDER_TRACKING;
   voucherId?: number;
+};
+
+/**
+ * Filter options to list purchase orders
+ */
+export type PurchaseOrderFilters = {
+  customerId?: number;
+  status?: typeof ENUMS.ORDER_TRACKING;
 };
 
 /**

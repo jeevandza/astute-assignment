@@ -10,7 +10,7 @@ class Customer extends Model<CustomerT, CustomerInput> implements CustomerT {
   public userId!: number;
   public purchaseOrderId!: number;
   public returnedOrderId!: number;
-  public address!: AddressT[] | undefined;
+  public address!: AddressT[];
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt!: Date;

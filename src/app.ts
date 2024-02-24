@@ -1,8 +1,8 @@
 import express from "express";
-import cors from 'cors';
+import cors from "cors";
 import "dotenv/config";
-import {userRoute } from "@Routes/index.ts";
-import { Logger} from '@Utils'
+import { userRoute, purchaseOrderRoute } from "@Routes/index.ts";
+import { Logger } from "@Utils";
 import dbInit from "@Database/init";
 
 dbInit();
@@ -13,10 +13,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 app.use("/v1", userRoute());
+app.use("/v1", purchaseOrderRoute());
 
 app.listen(PORT, () => {
   console.log(`Server listing at ${PORT}`);
-  Logger.info('g')
+  Logger.info("g");
 });

@@ -1,7 +1,6 @@
 import { Op } from "sequelize";
-import { User } from "@Models";
+import { User, UserInput, UserOutput, Customer } from "@Models";
 import { GetAllUserFilters } from "@Utils/Types";
-import { UserInput, UserOutput } from "@Models";
 
 /**
  * To create new user
@@ -46,6 +45,19 @@ const deleteUserById = async (id: number): Promise<boolean> => {
   const deleteUser = await User.destroy({
     where: { id },
   });
+  const findCustomerBasedOnUser = await Customer.findOne({
+    where: { userId: id },
+  });
+
+  /**
+   * If the customer exists
+   */
+  if (findCustomerBasedOnUser) {
+    await Customer.destroy({
+      where: { userId: id },
+    });
+  }
+
   return !!deleteUser;
 };
 
@@ -55,7 +67,7 @@ const deleteUserById = async (id: number): Promise<boolean> => {
 const getAllUsers = async (
   filters?: GetAllUserFilters
 ): Promise<UserOutput[]> => {
-  const whereClause:any = {};
+  const whereClause: any = {};
 
   if (filters && filters.isDeleted) {
     whereClause.deletedAt = { [Op.not]: null };
