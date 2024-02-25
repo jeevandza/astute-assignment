@@ -10,6 +10,7 @@ class User extends Model<UserT, UserInput> implements UserT {
   public name!: string;
   public email!: string;
   public contact!: string;
+  public password?: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
   public readonly deletedAt!: Date;
@@ -34,6 +35,10 @@ User.init(
     contact: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

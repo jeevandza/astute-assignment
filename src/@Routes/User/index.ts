@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { UserControl } from "@PGQuery";
+import { Helpers } from "@Utils";
 
 const userRoute = () => {
   const router = Router();
@@ -8,7 +9,15 @@ const userRoute = () => {
    * To create new user
    */
   router.post("/users", async (req: Request, res: Response) => {
-    const createUser = await UserControl.createUser(req.body);
+    const { password, email, name, contact } = req.body;
+    const hashUserPassword = await Helpers.hashPassword(password);
+
+    const createUser = await UserControl.createUser({
+      password: hashUserPassword,
+      email,
+      name,
+      contact
+    });
     if (!!createUser) {
       res.send({ status: 200, message: "User created" });
     } else {
