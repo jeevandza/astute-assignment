@@ -7,6 +7,9 @@ import { Helpers } from "@Utils";
 const authRoute = () => {
   const router = Router();
 
+  /**
+   * Control login with token creation 
+   */
   router.post("/login", async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const findUser = await User.findOne({ where: { email } });
@@ -43,6 +46,9 @@ const authRoute = () => {
     }
   });
 
+  /**
+   * Sign up user, this is creation of user with password
+   */
   router.post("/signup", async (req: Request, res: Response) => {
     const { name, password, email, contact } = req.body;
 

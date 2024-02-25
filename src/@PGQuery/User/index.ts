@@ -5,7 +5,7 @@ import { GetAllUserFilters } from "@Utils/Types";
 /**
  * To create new user
  */
-const createUser = async (payload: UserInput): Promise<UserOutput> => {
+const createUser = async (payload: UserInput): Promise<User> => {
   const newUser = await User.create(payload);
   return newUser;
 };
@@ -16,7 +16,7 @@ const createUser = async (payload: UserInput): Promise<UserOutput> => {
 const updateUser = async (
   id: number,
   payload: UserInput
-): Promise<UserOutput> => {
+): Promise<User> => {
   const findUser = await User.findByPk(id);
   if (!findUser) {
     throw new Error("Id not found");
@@ -29,7 +29,7 @@ const updateUser = async (
  * Get user by Id
  */
 
-const getUserByID = async (id: number): Promise<UserOutput> => {
+const getUserByID = async (id: number): Promise<User> => {
   const findUser = await User.findByPk(id);
   if (!findUser) {
     throw new Error("User not found");
@@ -66,7 +66,7 @@ const deleteUserById = async (id: number): Promise<boolean> => {
  */
 const getAllUsers = async (
   filters?: GetAllUserFilters
-): Promise<UserOutput[]> => {
+): Promise<User[]> => {
   const whereClause: any = {};
 
   if (filters && filters.isDeleted) {
