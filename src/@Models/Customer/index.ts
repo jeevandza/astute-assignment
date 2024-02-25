@@ -31,34 +31,20 @@ Customer.init(
     },
     purchaseOrderId: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
     },
     returnedOrderId: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
     timestamps: true,
+    tableName: "Customers", 
     sequelize: sequelizeConnection,
     paranoid: true,
   }
 );
 
-//   // Define associations
-//   Customer.belongsTo(User, {
-//     foreignKey: "userId",
-//     as: "user",
-//   });
-
-//   Customer.belongsTo(PurchaseOrder, {
-//     foreignKey: "purchaseOrderId",
-//     as: "purchaseOrder",
-//   });
-
-//   Customer.belongsTo(ReturnedOrder, {
-//     foreignKey: "returnedOrderId",
-//     as: "returnedOrder",
-//   });
 
 export default Customer;

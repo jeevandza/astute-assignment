@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
-import { PurchaseOrderControl } from "@PGQuery";
-import { Customer, User } from "@Models";
+import { PurchaseOrderControl, CustomerControl } from "@PGQuery";
+import { Customer, User, PurchaserOrder } from "@Models";
+import { ENUMS } from "@Utils";
 
 const purchaseOrderRoute = () => {
   const router = Router();
@@ -9,36 +10,52 @@ const purchaseOrderRoute = () => {
    * Create purchase order and create customer if the customer is not added Note user is added to customer table only if he places any oder
    */
   router.post("/purchaseOrder", async (req: Request, res: Response) => {
-    try {
-      const { userId, address, ...payload } = req.body;
+    const { userId, address, ...payload } = req.body;
 
-      const customer = await findOrCreateCustomer(userId);
-      const purchaseOrder = await PurchaseOrderControl.createPurchaseOrder(
-        payload
-      );
+    const customer = await findOrCreateCustomer(userId);
 
-      await Customer.update(
-        { purchaseOrderId: Number(purchaseOrder.id), address },
+    console.log(customer.id, "customer");
 
-        {
-          where: { id: customer.id },
-        }
-      );
+    const purchaseOrder = await PurchaseOrderControl.createPurchaseOrder({
+      customerId: customer.id,
+      ...payload,
+    });
 
-      res.status(201).json({ message: "Purchase order created successfully" });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ message: "Failed to create purchase order" });
-    }
+    console.log
+
+    const purchaseOrderId =   purchaseOrder.id;
+
+    console.log(purchaseOrderId, "purchaseOrderId");
+
+    await CustomerControl.updateCustomer(customer.id, {
+      userId,
+      address,
+      purchaseOrderId,
+    });
+
+    res.send({ status: 200, message: "Purchase order created successfully" });
+    return res.send({
+      status: 500,
+      message: "Failed to create purchase order",
+    });
   });
 
-  async function findOrCreateCustomer(userId: string): Promise<Customer> {
-    const customer = await Customer.findOne({ where: { id: userId } });
+  async function findOrCreateCustomer(userId: number) {
+    const customer = await Customer.findOne({ where: { userId } });
+
     if (!customer) {
-      const user = await User.findByPk(userId);
-      return await Customer.create(user!);
+      const user = await User.findByPk(Number(userId));
+
+      if (user) {
+        const customer = await CustomerControl.createCustomer({
+          userId,
+        });
+        return customer;
+      } else {
+        throw new Error("Failed to create customer");
+      }
     }
+
     return customer;
   }
 
@@ -80,7 +97,7 @@ const purchaseOrderRoute = () => {
   /**
    * To get purchase order  on the id
    */
-  router.get("/user/:id", async (req: Request, res: Response) => {
+  router.get("/purchaseOrder/:id", async (req: Request, res: Response) => {
     const purchaserOrderId = req.params.id;
     const orderById = await PurchaseOrderControl.getPurchaseOrderById(
       Number(purchaserOrderId)
@@ -102,20 +119,21 @@ const purchaseOrderRoute = () => {
   /**
    * To delete a purchase order on id
    */
-  router.delete("/user/:id", async (req: Request, res: Response) => {
+  router.delete("/purchaseOrder/:id", async (req: Request, res: Response) => {
     const orderId = req.params.id;
+
     const purchaseOrder = await PurchaseOrderControl.deleteAPurchaseOrder(
       Number(orderId)
     );
     if (!!purchaseOrder) {
       return res.send({
         status: 200,
-        message: "User delete successful",
+        message: "Purchase order  deleted successful",
       });
     } else {
       return res.send({
         status: 400,
-        message: "User not found",
+        message: "Purchase order not found",
       });
     }
   });

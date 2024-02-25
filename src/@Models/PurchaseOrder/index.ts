@@ -67,6 +67,7 @@ PurchaserOrder.init(
     },
     {
       timestamps: true,
+      tableName: "purchaserOrders", 
       sequelize: sequelizeConnection,
       paranoid: true,
     }

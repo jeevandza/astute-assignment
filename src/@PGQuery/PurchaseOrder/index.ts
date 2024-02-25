@@ -50,10 +50,6 @@ const getPurchaseOrderById = async (
  */
 
 const deleteAPurchaseOrder = async (id: number): Promise<Boolean> => {
-  const checkStatusOfPurchaseOrder = await PurchaserOrder.findByPk(id);
-  if (!checkStatusOfPurchaseOrder?.status.DECLINED) {
-    throw new Error("Order already in process");
-  }
   const findPurchaseOrder = await PurchaserOrder.destroy({
     where: { id },
   });

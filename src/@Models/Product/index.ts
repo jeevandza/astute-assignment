@@ -9,7 +9,7 @@ class Product extends Model<ProductT, ProductInput> implements ProductT {
   public id!: number;
   public name!: string;
   public description!: string;
-  public typeOfProduct!: number;
+  public typeOfProduct!: string;
   public quantity!: number;
   public price!: number;
   public expiryDate!: Date;
@@ -37,12 +37,8 @@ Product.init(
       allowNull: false,
     },
     typeOfProduct: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.STRING,
       allowNull: false,
-      references: {
-        model: "ProductType",
-        key: "id",
-      },
     },
     quantity: {
       type: DataTypes.INTEGER,
@@ -71,6 +67,7 @@ Product.init(
     },
   },
   {
+    tableName: "products", 
     timestamps: true,
     sequelize: sequelizeConnection,
     paranoid: true,

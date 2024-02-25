@@ -57,7 +57,7 @@ export type ProductT = CommonDatesT & {
   id: number;
   name: string;
   description: string;
-  typeOfProduct: number;
+  typeOfProduct: string;
   quantity: number;
   price: number;
   expiryDate: Date;
