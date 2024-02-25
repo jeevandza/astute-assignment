@@ -17,7 +17,6 @@ async function hashPassword(password: string): Promise<string> {
  * To verify password 
  */
 async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  console.log(password,hash, 'password')
   return bcryptJs.compare(password, hash);
 }
 

@@ -11,7 +11,6 @@ const authRoute = () => {
     const { email, password } = req.body;
     const findUser = await User.findOne({ where: { email } });
 
-    console.log(findUser, 'findUser')
     if (findUser) {
       const checkPassword = await Helpers.verifyPassword(
         password,

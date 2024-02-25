@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import { Logger, Helpers } from "@Utils"; // Assuming Logger and Helpers are exported correctly
+import { Request, Response, NextFunction } from "express";
+import dbInit from "@Database/init";
 import {
   userRoute,
   purchaseOrderRoute,
@@ -8,14 +11,11 @@ import {
   returnOrderRoute,
   authRoute,
 } from "@Routes/index.ts";
-import { Logger, Helpers } from "@Utils";
-import { Request, Response, NextFunction } from "express";
-import dbInit from "@Database/init";
 
 /**
- * Initializes db as soon as server stars running, initially creates tables based on schema created
+ * Initializes db as soon as server starts running, initially creates tables based on schema created
  */
-dbInit();
+// dbInit();
 
 /**
  * Server running port and express configuration
@@ -27,7 +27,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /**
- * Skip the token verification for login and signup routes
+ * Create a middleware to log requests
+ */
+const requestLoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  Logger.info(`${req.method} ${req.url}`);
+  next();
+};
+
+/**
+ * Skip token verification for login, signup, and users routes
  */
 app.use((req: Request, res: Response, next: NextFunction) => {
   if (req.path !== "/v1/login" && req.path !== "/v1/signup" && req.path !== "/v1/users") {
@@ -47,9 +55,22 @@ app.use("/v1", returnOrderRoute());
 app.use("/v1", authRoute());
 
 /**
+ * Create a middleware to log errors
+ */
+const errorLoggerMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
+  Logger.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+  next(err);
+};
+
+/**
+ * Error handling middleware - should be defined after routes
+ */
+app.use(errorLoggerMiddleware);
+app.use(requestLoggerMiddleware)
+
+/**
  * Express listening on port and control
  */
 app.listen(PORT, () => {
-  console.log(`Server listing at ${PORT}`);
-  Logger.info("g");
+  console.log(`Server listening at ${PORT}`);
 });
