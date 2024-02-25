@@ -11,7 +11,7 @@ import { ENUMS } from "@Utils";
  */
 const createPurchaseOrder = async (
   payload: PurchaseOrderInput
-): Promise<PurchaseOrderOutput> => {
+): Promise<PurchaserOrder> => {
   const createOrder = await PurchaserOrder.create(payload);
   return createOrder;
 };
@@ -22,7 +22,7 @@ const createPurchaseOrder = async (
 const updatePurchaseOrder = async (
   id: number,
   payload: PurchaseOrderInput
-): Promise<PurchaseOrderOutput> => {
+): Promise<PurchaserOrder> => {
   const findPurchaseOrder = await PurchaserOrder.findByPk(id);
   if (!findPurchaseOrder) {
     throw new Error("Purchase order not found");
@@ -37,7 +37,7 @@ const updatePurchaseOrder = async (
 
 const getPurchaseOrderById = async (
   id: number
-): Promise<PurchaseOrderOutput> => {
+): Promise<PurchaserOrder> => {
   const findPurchaseOrder = await PurchaserOrder.findByPk(id);
   if (!findPurchaseOrder) {
     throw new Error("Purchase order not found");
@@ -62,7 +62,7 @@ const deleteAPurchaseOrder = async (id: number): Promise<Boolean> => {
 
 const getAllPurchaseOrder = async (
   filters?: PurchaseOrderFilters
-): Promise<PurchaseOrderOutput[]> => {
+): Promise<PurchaserOrder[]> => {
   const whereClause: any = {};
 
   if (filters && filters.status) {

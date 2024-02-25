@@ -13,7 +13,7 @@ class ReturnedOrder
   public id!: number;
   public orderId!: number;
   public dateOfReturn!: Date;
-  public status!: typeof ENUMS.RETURN_ORDER_TRACKING;
+  public status!: string
   public returnedProducts!: {
     productId: number;
     totalQuantity: number;
@@ -50,6 +50,7 @@ ReturnedOrder.init(
   },
   {
     timestamps: true,
+    tableName: "returnedOrders", 
     sequelize: sequelizeConnection,
     paranoid: true,
   }

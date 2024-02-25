@@ -1,14 +1,19 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import { userRoute, purchaseOrderRoute, productRoute } from "@Routes/index.ts";
+import {
+  userRoute,
+  purchaseOrderRoute,
+  productRoute,
+  returnOrderRoute,
+} from "@Routes/index.ts";
 import { Logger } from "@Utils";
 import dbInit from "@Database/init";
 
 /**
  * Initializes db as soon as server stars running, initially creates tables based on schema created
  */
-dbInit();
+// dbInit();
 
 /**
  * Server running port and express configuration
@@ -25,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/v1", userRoute());
 app.use("/v1", purchaseOrderRoute());
 app.use("/v1", productRoute());
+app.use("/v1", returnOrderRoute());
 
 /**
  * Express listening on port and control

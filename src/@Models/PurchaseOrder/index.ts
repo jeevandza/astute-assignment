@@ -19,8 +19,8 @@ class PurchaserOrder
     expectedDeliveryDate: Date;
   }[];
   public totalPurchaseAmount!: number;
-  public modeOfPayment!: typeof ENUMS.PAYMENT_MODES;
-  public status!: typeof ENUMS.ORDER_TRACKING;
+  public modeOfPayment!: string;
+  public status!: string;
   public voucherId!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

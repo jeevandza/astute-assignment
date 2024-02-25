@@ -14,23 +14,21 @@ const purchaseOrderRoute = () => {
 
     const customer = await findOrCreateCustomer(userId);
 
-    console.log(customer.id, "customer");
-
+    /**
+     * Create purchase order
+     */
+    const customerId = customer.dataValues.id;
     const purchaseOrder = await PurchaseOrderControl.createPurchaseOrder({
-      customerId: customer.id,
+      customerId,
       ...payload,
     });
-
-    console.log
-
-    const purchaseOrderId =   purchaseOrder.id;
-
-    console.log(purchaseOrderId, "purchaseOrderId");
-
-    await CustomerControl.updateCustomer(customer.id, {
+    /**
+     * Update id to customer table
+     */
+    await CustomerControl.updateCustomer(customerId, {
       userId,
       address,
-      purchaseOrderId,
+      purchaseOrderId: purchaseOrder.dataValues.id,
     });
 
     res.send({ status: 200, message: "Purchase order created successfully" });
@@ -40,6 +38,9 @@ const purchaseOrderRoute = () => {
     });
   });
 
+  /**
+   * Check for customer if does not exists create new customer
+   */
   async function findOrCreateCustomer(userId: number) {
     const customer = await Customer.findOne({ where: { userId } });
 
@@ -55,7 +56,6 @@ const purchaseOrderRoute = () => {
         throw new Error("Failed to create customer");
       }
     }
-
     return customer;
   }
 
@@ -83,7 +83,7 @@ const purchaseOrderRoute = () => {
     if (!!purchaseOrderList) {
       return res.send({
         status: 200,
-        message: "List of users",
+        message: "List of purchase orders",
         data: purchaseOrderList,
       });
     } else {

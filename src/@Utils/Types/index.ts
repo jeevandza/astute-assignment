@@ -100,8 +100,8 @@ export type PurchaseOrderT = CommonDatesT & {
     expectedDeliveryDate: Date;
   }[];
   totalPurchaseAmount: number;
-  modeOfPayment: typeof ENUMS.PAYMENT_MODES;
-  status: typeof ENUMS.ORDER_TRACKING;
+  modeOfPayment: string;
+  status:string;
   voucherId?: number;
 };
 
@@ -120,7 +120,7 @@ export type ReturnedOrders = CommonDatesT & {
   id: number;
   orderId: number;
   dateOfReturn: Date;
-  status: typeof ENUMS.RETURN_ORDER_TRACKING;
+  status: string;
   returnedProducts: {
     productId: number;
     totalQuantity: number;

@@ -15,6 +15,7 @@ export const PAYMENT_MODES = {
     DECLINED: "declined",
     DESPATCHED: "despatched",
     DELIVERED: "delivered",
+    RETURNED:"returned"
   } as const;
   
   /**
@@ -23,6 +24,6 @@ export const PAYMENT_MODES = {
   export const RETURN_ORDER_TRACKING = {
     PROCESSING: "processing",
     OUT_FOR_PICKUP: "out-for-pickup",
-    RETURNED: "returned",
+    RETURNED: "returned-completed",
   } as const;
   

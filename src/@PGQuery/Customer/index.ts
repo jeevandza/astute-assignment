@@ -6,7 +6,7 @@ import { Customer, CustomerInput, CustomerOutput } from "@Models";
  */
 const createCustomer = async (
   payload: CustomerInput
-): Promise<CustomerOutput> => {
+): Promise<Customer> => {
   const newCustomer = await Customer.create(payload);
   return newCustomer;
 };
@@ -17,7 +17,7 @@ const createCustomer = async (
 const updateCustomer = async (
   id: number,
   payload: CustomerInput
-): Promise<CustomerOutput> => {
+): Promise<Customer> => {
   const findCustomer = await Customer.findByPk(id);
   if (!findCustomer) {
     throw new Error("Id not found");
