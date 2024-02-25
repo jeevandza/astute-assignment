@@ -40,6 +40,7 @@ export type UserT = CommonDatesT & {
   name: string;
   email: string;
   contact: string;
+  password?:string;
 };
 
 /**
