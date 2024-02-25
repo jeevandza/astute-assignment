@@ -13,8 +13,11 @@ import {
 } from "@Routes/index.ts";
 
 /**
- * Initializes db as soon as server starts running, initially creates tables based on schema created
+ * Initializes db as soon as server starts running, initially creates tables based on schema created.
+ * You can run below func but to prevent conflicts only run bellow if you are ready to start development as this created tables based on your models created and 
+ * syn'd to PG
  */
+
 // dbInit();
 
 /**
