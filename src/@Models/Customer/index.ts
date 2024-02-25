@@ -40,7 +40,7 @@ Customer.init(
   },
   {
     timestamps: true,
-    tableName: "Customers", 
+    tableName: "customers", 
     sequelize: sequelizeConnection,
     paranoid: true,
   }
