@@ -30,10 +30,16 @@ Neon - To control database with UI
 **Usage**
 
 Sample API's create a user 
+
 User can create products - (Role based access control not added any user can create any products)
+
 Products- CRUD
+
 Customers- Customer table created as soon as a user places an order
+
 Purchase order- Customer can book a product and tracking can be updated
+
 Return order - Customer can return your order 
+
 Auth- Login control token based 
 
