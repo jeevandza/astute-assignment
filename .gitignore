@@ -1,3 +1,4 @@
-dist
+dist/app.cjs
+dist/app.cjs.map
 .env
 node_modules
