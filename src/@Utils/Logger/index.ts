@@ -5,11 +5,16 @@ const logFilePath = path.join(__dirname, "logs");
 
 const { combine, timestamp, json, printf } = winston.format;
 
+/**
+ * Create log format
+ */
 const logFormat = printf(({ level, message, timestamp }) => {
   return `${timestamp} ${level}: ${message}`;
 });
 
-// Create the logger instance
+/**
+ * Create the logger instance
+ */
 const logger = winston.createLogger({
   level: "info",
   format: combine(timestamp(), json(), logFormat),

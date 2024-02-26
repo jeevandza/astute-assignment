@@ -20,6 +20,15 @@ import {
 
 // dbInit();
 
+
+/**
+ * Create a middleware to log requests
+ */
+const requestLoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  Logger.info(`${req.method} ${req.url}`);
+  next();
+};
+
 /**
  * Server running port and express configuration
  */
@@ -29,13 +38,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/**
- * Create a middleware to log requests
- */
-const requestLoggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  Logger.info(`${req.method} ${req.url}`);
-  next();
-};
+
 
 /**
  * Skip token verification for login, signup, and users routes
