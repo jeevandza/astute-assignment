@@ -6,8 +6,14 @@ import {
   ReturnedOrder,
 } from "@Models";
 
+/**
+ * Creating development 
+ */
 const isDevelopment = process.env.NODE_ENV === "development";
 
+/**
+ * Initialize all the required tables
+ */
 const dbInit = async () => {
   try {
     await Promise.all([
